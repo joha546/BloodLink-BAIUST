@@ -1,11 +1,12 @@
 from flask import render_template
 from backend import app
-from backend.models import User
+from backend.models import User, BloodPost
 from flask_login import current_user
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    posts = BloodPost.query.all()
+    return render_template('index.html', posts=posts)
 
 
 @app.route('/about_us')

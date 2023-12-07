@@ -1,6 +1,6 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, login_required, current_user
-from ..models import Patient, User
+from ..models import Patient, User, BloodPost
 from . import task
 from .. import db, login_manager
 from .forms import UserProfileForm
@@ -44,3 +44,40 @@ def donation_details(patient_id):
     patient_details = Patient.query.get_or_404(patient_id)
     return render_template('donation_details.html', title='Patient Details', patient_details=patient_details)
 
+
+@task.route('/create_post', methods=['GET', 'POST'])
+def create_post():
+    if request.method == 'POST':
+        name = request.form['name']
+        address = request.form['address']
+        number = request.form['number']
+        blood_group = request.form['blood_group']
+        deadline = request.form['deadline']
+
+        new_post = BloodPost(
+            name=name,
+            address=address,
+            number=number,
+            blood_group=blood_group,
+            deadline=deadline
+        )
+
+        db.session.add(new_post)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+
+        
+    return render_template('blood_post.html', title="Create Post")
+
+@task.route('/view_post/<int:id>')
+@login_required
+def view_post(id):
+    post = BloodPost.query.get_or_404(id)
+
+    return render_template('post.html', post=post)
+
+@task.route('/accept')
+@login_required
+def accept():
+    return "<h1>Success!!!</h1>"

@@ -42,7 +42,7 @@
 <body>
     <div class="container">
         <h2 style="text-align: center;">Blood Request Form</h2>
-        <form action="{{ url_for('auth.user_dashboard') }}" method="post">
+        <form method="post">
 
             <label for="patient_name">Patient Name</label>
             <input type="text" id="patient_name" name="patient_name" required>
@@ -73,16 +73,9 @@
             <button type="submit">Submit Request</button>
 
             <!-- Add the Urgent Request button here -->
-            <button type="button" onclick="submitUrgentRequest()">Urgent Request</button>
+            <button type="submit">Urgent Request</button>
             
         </form>
     </div>
-
-    <script>
-        function submitUrgentRequest() {
-            // Redirect to the URL associated with submit_urgent_request route
-            window.location.href = "{{ url_for('notify.submit_urgent_request') }}";
-        }
-    </script>
 </body>
 </html>

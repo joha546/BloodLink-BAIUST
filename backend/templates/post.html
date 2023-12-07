@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div>
+        <h1><strong>{{ post.name }}</strong> needs {{ post.blood_group }} blood @ {{ post.address }}</h1>
+        <h1>Contact Number: {{ post.number }}</h1>
+        <p><strong>Deadline: </strong>{{ post.deadline }}</p>
+
+        <a href="{{ url_for('task.accept') }}"><button>Accept</button></a>
+  </div>
+{% endblock %}
