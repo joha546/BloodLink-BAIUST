@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Request Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #cc0000;
+        }
+
+        #patientDetails {
+            margin-top: 20px;
+        }
+
+        #actionButtons {
+            margin-top: 20px;
+        }
+
+        #acceptBtn, #rejectBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Blood Donation Request Details</h2>
+
+    <!-- Patient Details Section -->
+    <div id="patientDetails">
+        <h3>Patient Details</h3>
+        <p><strong>Name:</strong> {{ patient_details.patient_name }}</p>
+        <p><strong>Disease:</strong> {{ patient_details.disease }}</p>
+        <p><strong>Blood Group:</strong> {{ patient_details.blood_group }}</p>
+        <p><strong>BAIUST ID:</strong> {{ patient_details.baiust_id }}</p>
+        <p><strong>Bag Needed:</strong> {{ patient_details.bag_needed }}</p>
+        <p><strong>Contact Number:</strong> {{ patient_details.contact_number }}</p>
+        <p><strong>Email:</strong> {{ patient_details.email }}</p>
+        <p><strong>Request Date:</strong> {{ patient_details.request_date }}</p>
+    </div>
+
+    <!-- Action Buttons Section -->
+    <div id="actionButtons">
+        <form action="{{ url_for('notify.accept_request', request_id=patient_details.id) }}" method="post">
+            <button type="submit" id="acceptBtn">Accept</button>
+        </form>
+        
+        <form action="{{ url_for('notify.reject_request', request_id=patient_details.id) }}" method="post">
+            <button type="submit" id="rejectBtn">Reject</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code for redirecting to user_dashboard
+        document.getElementById('acceptBtn').addEventListener('click', function() {
+            window.location.href = "{{ url_for('auth.user_dashboard') }}";
+        });
+
+        document.getElementById('rejectBtn').addEventListener('click', function() {
+            window.location.href = "{{ url_for('auth.user_dashboard') }}";
+        });
+    </script>
+</body>
+</html>

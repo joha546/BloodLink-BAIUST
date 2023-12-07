@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #mainContent {
+            padding: 20px;
+        }
+
+        #sidePanel {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            color: white;
+        }
+
+        #arrowBtn {
+            font-size: 30px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+        }
+
+        #userProfile {
+            padding: 10px;
+            text-align: center;
+        }
+
+        #historyBtn, #logoutBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content -->
+    <div id="mainContent">
+        <h1>Blood Donation Page</h1>
+        <button onclick="openSidePanel('BloodRequest')"><a href="{{ url_for('notify.blood_request_form') }}">Blood Request</a></button>
+        <button onclick="openSidePanel('Donation')"><a href="{{ url_for('notify.donation') }}">Blood Donation</a></button>
+    </div>
+
+    <!-- Arrow Button to Open Side Panel -->
+    <div id="arrowBtn" onclick="toggleSidePanel()">
+        &#x2192;
+    </div>
+
+    <!-- Side Panel -->
+    <div id="sidePanel">
+        <!-- User Profile Section -->
+        <div id="userProfile">
+            <h3>User Profile</h3>
+            <button id="historyBtn" onclick="redirectToHistory()">History</button>
+            <button id="logoutBtn" onclick="redirectToIndex()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidePanel() {
+            const sidePanel = document.getElementById('sidePanel');
+            sidePanel.style.width = (sidePanel.style.width === '250px') ? '0' : '250px';
+        }
+
+        function openSidePanel(section) {
+            toggleSidePanel();
+            
+            console.log(`Clicked on ${section}`);
+        }
+
+        function redirectToHistory() {
+            window.location.href = "{{ url_for('task.donation_history') }}";
+        }
+
+        function redirectToIndex() {
+            window.location.href = "{{ url_for('index') }}";
+        }
+    </script>
+
+</body>
+</html>

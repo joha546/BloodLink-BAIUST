@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            text-align: left;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center;">Blood Link BAIUST</h2>
+        <form action="{{ url_for('auth.login') }}" method="post" id="registrationForm">
+
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="full_name" required>
+
+            <label for="baiustId">BAIUST ID:</label>
+            <input type="text" id="baiustId" name="baiust_id" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" id="contactNumber" name="contact_number" required>
+
+            <label for="bloodGroup">Blood Group:</label>
+            <select name="blood_group" required>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+
+            <label for="disease">Disease (if any):</label>
+            <input type="text" id="disease" name="disease">
+
+            <label for="lastDonated">Last Donated (YYYY-MM-DD):</label>
+            <input type="text" id="lastDonated" name="last_donated">
+
+            <label for="hometown">Hometown:</label>
+            <textarea id="hometown" name="hometown" required></textarea>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirm_password" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p style="text-align: center;">Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
+    </div>
+
+    
+</body>
+</html>
