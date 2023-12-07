@@ -43,8 +43,7 @@
 <body>
     <div class="container">
         <h2 style="text-align: center;">Blood Link BAIUST</h2>
-        <form action="{{ url_for('auth.login') }}" method="post" id="registrationForm">
-
+        <form method="post">
             <label for="fullName">Full Name:</label>
             <input type="text" id="fullName" name="full_name" required>
 
@@ -58,16 +57,7 @@
             <input type="text" id="contactNumber" name="contact_number" required>
 
             <label for="bloodGroup">Blood Group:</label>
-            <select name="blood_group" required>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-            </select>
+            <input type="text" id="contactNumber" name="blood_group" required>
 
             <label for="disease">Disease (if any):</label>
             <input type="text" id="disease" name="disease">

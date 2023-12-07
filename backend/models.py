@@ -9,26 +9,17 @@ class DonationHistory(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     amount = db.Column(db.Float)
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(120), nullable=False)
     baiust_id = db.Column(db.String(20), unique=True, nullable=False)
     blood_group = db.Column(db.String(3), nullable=False)
     contact_number = db.Column(db.String(15))
     disease = db.Column(db.String(120))
-    last_donated = db.Column(db.DateTime)
+    last_donated = db.Column(db.String(120))
     hometown = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    
-    donation_history = db.relationship('DonationHistory', backref='user', lazy=True)
-
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
 
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,9 +1,9 @@
 from flask import flash
 
-from backend import db
+from .. import db
 from backend.task.forms import RegistrationForm, UserProfileForm
 from flask import request
-from backend.models import User
+from ..models import User
 from backend.task.forms import LoginForm
 from flask import redirect, render_template, url_for
 from flask_login import current_user, login_required, login_user, logout_user
@@ -55,28 +55,36 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('auth.user_dashboard'))
 
-    form = RegistrationForm()
+    if request.method == 'POST':
+        full_name=request.form['full_name']
+        baiust_id=request.form['baiust_id']
+        blood_group=request.form['blood_group']
+        contact_number=request.form['contact_number']
+        disease=request.form['disease']
+        last_donated=request.form['last_donated']
+        hometown=request.form['hometown']
+        email=request.form['email']
+        password_hash = request.form['password']
 
-    if form.validate_on_submit():
         new_user = User(
-            full_name=form.full_name.data,
-            baiust_id=form.baiust_id.data,
-            blood_group=form.blood_group.data,
-            contact_number=form.contact_number.data,
-            disease=form.disease.data,
-            last_donated=form.last_donated.data,
-            hometown=form.hometown.data,
-            email=form.email.data
+            full_name=full_name,
+            baiust_id=baiust_id,
+            blood_group=blood_group,
+            contact_number=contact_number,
+            disease=disease,
+            last_donated=last_donated,
+            hometown=hometown,
+            email=email,
+            password_hash=password_hash
         )
 
-        new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
 
         flash('Your account has been created! You can now log in.', 'success')
         return redirect(url_for("auth.login"))
 
-    return render_template('signup.html', title='Register', form=form)
+    return render_template('signup.html', title='Register')
 
 # User Profile Dashboard route
 @auth.route('/user_dashboard')
