@@ -1,5 +1,4 @@
 from flask import flash
-
 from .. import db
 from backend.task.forms import RegistrationForm, UserProfileForm
 from flask import request
@@ -12,33 +11,30 @@ from .. import login_manager
 
 
 # Load user callback for Flask-Login
-# Load user callback for Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+@auth.route('/login')
+def login():
+    return render_template('login.html', title='Login Page')
+
 # Login route
 @auth.route('/login', methods=['GET', 'POST'])
-def login():
+def login_post():
     if current_user.is_authenticated:
         return redirect(url_for('auth.user_dashboard'))
 
-    if request.method == 'POST':
-        email = request.form.get('email')  # Change 'username' to 'email'
-        password = request.form.get('password')
+    email = request.form['email']
+    password = request.form['password']
 
-        user = User.query.filter_by(email=email).first()  # Change 'username' to 'email'
+    user = User.query.filter_by(email=email).first()
 
-        if user and user.check_password(password):
-            login_user(user)
-            flash('Login successful!', 'success')
+    if not user or not user.password_hash == password:
+        login_user(user, remember=True)
+        return redirect('auth.login')
 
-            # Redirect to user_dashboard
-            return redirect(url_for('auth.user_dashboard'))
-        else:
-            flash('Login unsuccessful. Please check your email and password.', 'danger')
-
-    return render_template('login.html', title='Login Page')
+    return redirect(url_for('auth.user_dashboard'))
 
 
 # Logout route

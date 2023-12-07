@@ -12,7 +12,7 @@ from ..task.forms import PatientForm
 
 
 @notify.route('/blood_request_form', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def blood_request_form():
     form = PatientForm()  # Create an instance of the PatientForm
 
@@ -22,8 +22,10 @@ def blood_request_form():
         disease = form.disease.data
         blood_group = form.blood_group.data
         address = form.address.data
-        quantity = form.quantity.data
+        bag_needed = form.bag_needed.data
         baiust_id = form.baiust_id.data
+        contact_number = form.contact_number.data
+        email = form.email.data
 
         # Create a new patient entry
         new_patient = Patient(
@@ -32,8 +34,10 @@ def blood_request_form():
             disease=disease,
             blood_group=blood_group,
             address=address,
-            quantity=quantity,
-            baiust_id=baiust_id
+            bag_needed=bag_needed,
+            baiust_id=baiust_id,
+            contact_number=contact_number,
+            email=email
         )
 
         db.session.add(new_patient)
@@ -51,7 +55,7 @@ def blood_request_form():
 notify.add_url_rule('/urgent_blood_request', 'submit_urgent_request', submit_urgent_requests, methods=['POST'])
 
 @notify.route('/donation')
-@login_required
+# @login_required
 def donation():
     blood_requests = Patient.query.all()
     return render_template('donation_list.html', title='Blood Donation List', blood_requests=blood_requests)
@@ -73,7 +77,7 @@ def accept_request(request_id):
 
         if donation_history:
             # If the user already has a donation history, update it
-            donation_history.amount += 1  # You can adjust the amount as needed
+            donation_history.amount += 1 
             donation_history.date = datetime.utcnow()
         else:
             # If the user doesn't have a donation history, create a new one
@@ -82,7 +86,7 @@ def accept_request(request_id):
         db.session.add(donation_history)
         db.session.commit()
 
-        # Move donor information to the patient (blood_request)
+
         blood_request.donor_name = donor.user.full_name
         blood_request.donor_uid = donor.user.uid
         blood_request.donor_blood_group = donor.user.blood_group
@@ -101,7 +105,7 @@ def accept_request(request_id):
 
 
 @notify.route('/reject_request/<int:request_id>', methods=['POST'])
-@login_required
+# @login_required
 def reject_request(request_id):
     blood_request = Patient.query.get_or_404(request_id)
 

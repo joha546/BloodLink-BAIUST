@@ -40,7 +40,7 @@
 <body>
     <div class="container">
         <h2 style="text-align: center;">Blood Link BAIUST</h2>
-        <form action="/login" method="post" onsubmit="redirectToDashboard()">
+        <form method="post">
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" required>
 
@@ -51,12 +51,5 @@
             <p style="text-align: center;">New Here? <a href="{{ url_for('auth.register') }}">Registration</a></p>
         </form>
     </div>
-
-    <script>
-        function redirectToDashboard() {
-            // Redirect to user_dashboard URL
-            window.location.href = "{{ url_for('auth.user_dashboard') }}";
-        }
-    </script>
 </body>
 </html>

@@ -10,6 +10,8 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 app.app_context().push()
 login_manager = LoginManager(app)
+login_manager.login_view = 'auth.login'
+login_manager.init_app(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
 

@@ -1,29 +1,27 @@
-
 from flask import render_template, flash, redirect, url_for
-from flask_login import login_required, current_user
-from backend import app, db, mail  
+from flask_mail import Message
+from backend import app, db, mail
 from ..models import Patient, Donor
-from flask_mail import Message  # Assuming you have Flask-Mail installed and configured
+from flask_login import login_required, current_user
 from .eligibility import check_donation_eligibility
 
 @app.route('/urgent_requests', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def submit_urgent_requests():
     patients = Patient.query.filter_by(is_urgent=True).all()
 
     for patient in patients:
-        donors = Donor.query.all()
+        donors = Donor.query.filter_by(blood_group=patient.blood_group).all()
+
 
         for donor in donors:
             # Check if donor's blood group matches patient's blood group
             if donor.user.blood_group == patient.blood_group:
-                donor_user = donor.user
-
-                if check_donation_eligibility(donor_user):  # Check eligibility before sending SMS
-                    send_sms_to_donor(patient, donor_user)
+                if check_donation_eligibility(donor.user):  # Check eligibility before sending SMS
+                    send_sms_to_donor(patient, donor.user)
 
     flash('Urgent SMS notifications sent to potential donors!', 'success')
-    return redirect(url_for('auth.user_dashboard'))  # Adjust the route as needed
+    return redirect(url_for('auth.user_dashboard'))
 
 def send_sms_to_donor(patient, donor_user):
     # Customize this function based on your SMS content and configuration

@@ -13,4 +13,3 @@ def check_donation_eligibility():
     else:
             flash('You must wait at least 3 months between donations.', 'danger')
             
-    return redirect(url_for('auth.user_dashboard'))  # Adjust the route as needed

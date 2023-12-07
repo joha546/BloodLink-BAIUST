@@ -1,11 +1,11 @@
 from flask import render_template
 from backend import app
 from backend.models import User
+from flask_login import current_user
 
 @app.route('/')
 def index():
-    users = User.query.all()
-    return render_template('index.html', users=users)
+    return render_template('index.html')
 
 
 @app.route('/about_us')
