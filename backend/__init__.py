@@ -15,6 +15,7 @@ login_manager.init_app(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
 
+
 from .task import task as task_blueprint
 app.register_blueprint(task_blueprint)
 

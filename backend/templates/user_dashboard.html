@@ -55,7 +55,9 @@
     </style>
 </head>
 <body>
-
+    {% if current_user.is_authenticated %}
+    <h1>Logged in</h1>
+    {% endif %}
     <!-- Main Content -->
     <div id="mainContent">
         <h1>Blood Donation Page</h1>

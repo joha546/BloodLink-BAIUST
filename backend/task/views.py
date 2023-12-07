@@ -31,14 +31,11 @@ def edit_profile():
 from flask_login import  current_user
 
 @task.route('/donation_history')
+@login_required
 def donation_history():
     # Check if the user is authenticated
-    if current_user.is_authenticated:
-        donation_history = current_user.donation_history
-        return render_template('donation_history.html', title='Donation History', donation_history=donation_history)
-    else:
-        # If the user is not authenticated, redirect to the login page
-        return redirect(url_for('auth.login'))
+    donation_history = current_user.donation_history
+    return render_template('donation_history.html', title='Donation History', donation_history=donation_history)
 
 
 

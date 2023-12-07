@@ -47,6 +47,11 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
+            <label>
+                <input type="checkbox" name="remember">
+                Remember me
+            </label>
+
             <button type="submit">Login</button>
             <p style="text-align: center;">New Here? <a href="{{ url_for('auth.register') }}">Registration</a></p>
         </form>

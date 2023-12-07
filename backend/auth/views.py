@@ -9,8 +9,6 @@ from flask_login import current_user, login_required, login_user, logout_user
 from . import auth
 from .. import login_manager
 
-
-# Load user callback for Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -22,18 +20,18 @@ def login():
 # Login route
 @auth.route('/login', methods=['GET', 'POST'])
 def login_post():
-    if current_user.is_authenticated:
-        return redirect(url_for('auth.user_dashboard'))
-
+    
     email = request.form['email']
     password = request.form['password']
+    remember = True if request.form.get("remember") else False
 
     user = User.query.filter_by(email=email).first()
 
     if not user or not user.password_hash == password:
-        login_user(user, remember=True)
+        
         return redirect('auth.login')
-
+    
+    login_user(user, remember=remember)
     return redirect(url_for('auth.user_dashboard'))
 
 
