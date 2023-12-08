@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
+        /* Your existing styles remain unchanged */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -12,42 +13,41 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         .container {
             width: 50%;
             margin: auto;
             overflow: hidden;
         }
-
         .profile-card {
-            background-color: #fff;
+            background-color: #990000;
             padding: 20px;
             margin-top: 50px;
             border-radius: 5px;
             box-shadow: 0px 0px 10px 0px #000;
+            color: white;
         }
-
         img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             margin-bottom: 20px;
         }
-
         h2 {
             font-size: 24px;
             margin-bottom: 10px;
         }
-
         p {
             font-size: 16px;
             margin-bottom: 20px;
         }
-
         a {
             text-decoration: none;
-            color: #4caf50;
+            color: #990000;
+            background-color: white;
             font-weight: bold;
+            padding: 4px;
+            border-radius: 2px;
+
         }
     </style>
 </head>
@@ -55,14 +55,16 @@
 
 <div class="container">
     <div class="profile-card">
-        <img src="profile-picture.jpg" alt="User Profile Picture">
-        <h2>John Doe</h2>
-        <p>Email: john.doe@example.com</p>
-        <p>Blood Group:A+</p>
-        <p>Contact:***********</p>
-        <p>Address:city,country</p>
-
-        <a href="edit_profile.html">Edit Profile</a>
+        
+        <h2>{{ user_data['name'] }}</h2>
+        <p>Email: {{ user_data['email'] }}</p>
+        <p>Blood Group: {{ user_data['blood_group'] }}</p>
+        <p>Contact: {{ user_data['contact_number'] }}</p>
+        <p>Baiust ID: {{ user_data['baiust_id'] }}</p>
+        <p>Last Donated: {{ user_data['last_donated'] }}</p>
+        <p>Address: {{ user_data['hometown'] }}</p>
+        
+        <a href="{{ url_for('index') }}">Home</a>
     </div>
 </div>
 

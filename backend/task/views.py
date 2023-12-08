@@ -1,17 +1,16 @@
 import os
-from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_user, login_required, current_user
-from flask_mail import Mail, Message
+from flask import render_template, redirect, url_for, request
+from flask_login import login_required
+from flask_mail import Message
 
-from ..models import Patient, User, BloodPost
+from ..models import User, BloodPost
 from . import task
-from .. import db, login_manager, mail
-from .forms import UserProfileForm
+from .. import db, mail
 
 mail_user = os.environ.get('MAIL_USERNAME')
 
 
-@task.route('/edit_profile', methods=['GET', 'POST'])
+'''@task.route('/edit_profile', methods=['GET', 'POST'])
 # @login_required
 def edit_profile():
     
@@ -49,10 +48,10 @@ def donation_details(patient_id):
     patient_details = Patient.query.get_or_404(patient_id)
     return render_template('donation_details.html', title='Patient Details', patient_details=patient_details)
 
-
+'''
 @task.route('/create_post', methods=['GET', 'POST'])
 def create_post():
-    # user_emails = [user.email for user in User.query.filter_by(blood_group="B+").all()]
+    #user_emails = [user.email for user in User.query.filter_by(blood_group="B+").all()]
 
     if request.method == 'POST':
         name = request.form['name']

@@ -5,17 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us</title>
   <link rel="stylesheet" href="style_aboutus.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            }
+          }
+        }
+      }
+    </script>
 </head>
-<body>
-  <header>
-    <h3>About Us</h3>
-  </header>
-
-  <main>
-    <section class="about-us">
-      <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Company Logo" style="height: 200px;width: 200px;">
-      <p>Backend: Joha</p>
+<body class="bg-red-700 h-[300px] text-white">
+    <section>
+      <img class="rounded-md mx-[550px] mt-10" src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" style="height: 200px;width: 200px;">
+      <p class="mx-10 mt-10">ABOUT US</p>
+      <p class="p-10">
+        
+        ajhgajhsgauygra loremsigfau a uayigsfauygfas fayf aygsfa ayfgaaa98 orhbfvigff a fbrarfaliufhpa09hg
+      </p>
     </section>
-  </main>
 </body>
 </html>

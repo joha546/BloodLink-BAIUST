@@ -1,20 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            }
+          }
+        }
+      }
+    </script>
     <title>{% block title %}{% endblock %} | BloodLink</title>
   </head>
   <body>
-    <nav class="mx-[300px] mt-2 flex justify-between items-center">
-      <a href="{{ url_for('about_us') }}" class="text-3xl font-bold">BloodLink</a>
+    <nav class="mx-[10px] mt-3">
+     
 
       {% if current_user.is_authenticated %}
         <div class="space-x-4">
-          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('task.create_post') }}">Create Post</a></button>
           <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('index') }}">Home</a></button>
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('task.create_post') }}">Create Post</a></button>
           <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('auth.logout') }}">Logout</a></button>
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('auth.user_profile') }}">User Profile</a></button>
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('about_us') }}">About Us</a></button>
+
         </div>
       {% else %}
         <div class="space-x-6">

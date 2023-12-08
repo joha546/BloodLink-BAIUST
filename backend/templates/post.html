@@ -3,20 +3,25 @@
 {% block title %}{{ post.name }}{% endblock %}
 
 {% block content %}
-    <div>
-        <h1><strong>{{ post.name }}</strong> needs {{ post.blood_group }} blood @ {{ post.address }}</h1>
+    <div class='bg-red-700 text-white p-10 rounded mt-2 h-[300px]'>
+        <h1>Name: <strong>{{ post.name }}</strong> needs {{ post.blood_group }} blood @ {{ post.address }}</h1>
         <h1>Contact Number: {{ post.number }}</h1>
         <h1>Bag Needed: {{ post.bag_needed }}</h1>
         <h1>Bag Recieved: {{ post.bag_recieved }}</h1>
         <p><strong>Deadline: </strong>{{ post.deadline }}</p>
 
-        <a href="{{ url_for('task.accept') }}"><button>Accept</button></a>
+        <a href="{{ url_for('task.accept') }}"><button class='border border-2 px-4 bg-white text-red-700 rounded mt-2'>Accept</button></a>
     </div>
-
+     <div class='bg-red-700 text-white p-10'>
+      <strong class='font-bold text-2xl'>Donation Form</strong>
     <form method="POST">
+      <h1>NAME: </h1>
       <input type="text" name="name" required>
+      <h1>EMAIL: </h1>
       <input type="email" name="email" required>
-      <input type="text" name="number" required>
-      <button type="submit">Send</button>
+      <h1>NUMBER: </h1>
+      <input type="text" name="number" required><br>
+      <button type="submit" class='border border-2 px-4 bg-white text-red-700 rounded mt-2'>Send</button>
     </form>
+  </div>
 {% endblock %}

@@ -82,6 +82,37 @@ def register():
 
 # User Profile Dashboard route
 @auth.route('/user_dashboard')
-#@login_required
+# @login_required
 def user_dashboard():
     return render_template('user_dashboard.html', title='User Dashboard')
+
+
+@auth.route('/user_profile')
+def user_profile():
+    # Ensure that the user is authenticated
+    if not current_user.is_authenticated:
+        # Redirect to the login page if the user is not authenticated
+        flash('Please log in to access your profile.', 'warning')
+        return redirect(url_for('auth.login'))
+
+    # Fetch user details from the database
+    user = User.query.filter_by(id=current_user.id).first()
+
+    if not user:
+        # Handle the case where the user is not found in the database
+        flash('User not found.', 'danger')
+        return redirect(url_for('auth.login'))
+
+    user_data = {
+        'name': user.full_name,
+        'baiust_id': user.baiust_id,
+        'email': user.email,
+        'blood_group': user.blood_group,
+        'contact': user.contact_number,
+        'disease': user.disease,
+        'last_donated': user.last_donated,
+        'hometown': user.hometown
+        # Add more user details as needed
+    }
+
+    return render_template('user_profile.html', user_data=user_data)

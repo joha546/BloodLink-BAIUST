@@ -3,11 +3,17 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-  <div class="text-center">
-    <h1>Blood Link BAIUST</h1>
+  <style>
+    .heading h2{
+      color: red;
+      font-size: 60px;
+      text-align:center;
+    }
+  </style>
+  <div class="heading">
+    <h2>BLOOD LINK BAIUST</h2>
   </div>
-
-  <img src="{{ url_for('static', filename='image1.jpg') }}" alt="Banner Image" style="width: 100%;">
+  <img src="{{ url_for('static', filename='image1.png') }}" alt="Banner Image" style="width: 100%;">
 
   <div class="text-center">
     <h1>Blood Requests: {{ blood_group }}</h1>
@@ -16,7 +22,7 @@
   <div class="grid grid-cols-4 place-items-center gap-3">
   {% for post in posts %}
     {% if post.donated == False %}
-      <div class="p-6 h-[400px] w-[340px] bg-red-700 text-white rounded-xl">
+      <div class="p-6 h-[200px] w-full bg-red-700 text-white rounded-xl">
         <h1><strong>{{ post.name }}</strong> needs {{ post.blood_group }} blood @ {{ post.address }}</h1>
         <h1>Contact Number: {{ post.number }}</h1>
         <p><strong>Deadline: </strong>{{ post.deadline }}</p>
