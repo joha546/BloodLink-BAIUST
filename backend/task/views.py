@@ -80,8 +80,8 @@ def view_post(id):
     post = BloodPost.query.get_or_404(id)
     
     if request.method == 'POST':   
-        msg = Message(f'{request.form.get('name')} agreed to give blood', sender=('BloodLink BAIUST','heavenoncrack@gmail.com'), recipients=[post.email])
-        msg.body = f"{post.name} has accepted your blood request from BloodLink BAIUST."
+        msg = Message(f'{request.form.get("name")} agreed to give blood', sender=('BloodLink BAIUST','heavenoncrack@gmail.com'), recipients=[post.email])
+        msg.body = f"{request.form.get('name')} has accepted your blood request from BloodLink BAIUST."
         mail.send(msg)
 
         return redirect(url_for('task.accept'))
