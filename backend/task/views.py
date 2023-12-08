@@ -1,3 +1,4 @@
+import os
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, login_required, current_user
 from flask_mail import Mail, Message
@@ -6,6 +7,8 @@ from ..models import Patient, User, BloodPost
 from . import task
 from .. import db, login_manager, mail
 from .forms import UserProfileForm
+
+mail_user = os.environ.get('MAIL_USERNAME')
 
 
 @task.route('/edit_profile', methods=['GET', 'POST'])
@@ -49,12 +52,15 @@ def donation_details(patient_id):
 
 @task.route('/create_post', methods=['GET', 'POST'])
 def create_post():
+    # user_emails = [user.email for user in User.query.filter_by(blood_group="B+").all()]
+
     if request.method == 'POST':
         name = request.form['name']
         address = request.form['address']
         number = request.form['number']
         email = request.form['email']
         blood_group = request.form['blood_group']
+        bag_needed = request.form['bag_needed']
         deadline = request.form['deadline']
 
         new_post = BloodPost(
@@ -63,11 +69,18 @@ def create_post():
             number=number,
             email=email,
             blood_group=blood_group,
+            bag_needed=bag_needed,
             deadline=deadline
         )
 
         db.session.add(new_post)
         db.session.commit()
+
+        user_emails = [user.email for user in User.query.filter_by(blood_group=blood_group).all()]
+
+        msg = Message(f'{request.form.get("name")} needs blood', sender=('BloodLink BAIUST', mail_user), recipients=user_emails)
+        msg.body = f"{request.form.get('name')} needs {request.form.get('blood_group')} blood from BloodLink BAIUST."
+        mail.send(msg)
 
         return redirect(url_for('index'))
 
@@ -81,8 +94,17 @@ def view_post(id):
     
     if request.method == 'POST':   
         msg = Message(f'{request.form.get("name")} agreed to give blood', sender=('BloodLink BAIUST','heavenoncrack@gmail.com'), recipients=[post.email])
-        msg.body = f"{request.form.get('name')} has accepted your blood request from BloodLink BAIUST."
+
+        msg.body = f"""{request.form.get('name')} has accepted your blood request from BloodLink BAIUST.
+Contact Number: {request.form.get('number')}"""
+        
         mail.send(msg)
+        bags = post.bag_recieved + 1
+        if post.bag_recieved == post.bag_needed - 1:
+            post.donated = True
+
+        post.bag_recieved = bags
+        db.session.commit()
 
         return redirect(url_for('task.accept'))
 

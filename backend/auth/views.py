@@ -32,7 +32,7 @@ def login_post():
         return redirect('auth.login')
     
     login_user(user, remember=remember)
-    return redirect(url_for('auth.user_dashboard'))
+    return redirect(url_for('index'))
 
 
 # Logout route

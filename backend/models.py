@@ -64,4 +64,8 @@ class BloodPost(db.Model):
     email = db.Column(db.String(255), nullable=False)
     blood_group = db.Column(db.String(255), nullable=False)
     deadline = db.Column(db.String(255), nullable=False)
+    donated = db.Column(db.Boolean, default=False)
+    bag_needed = db.Column(db.Integer, nullable=False)
+    bag_recieved = db.Column(db.Integer, default=0)
+
 

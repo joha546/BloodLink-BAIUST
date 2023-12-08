@@ -6,6 +6,8 @@
     <div>
         <h1><strong>{{ post.name }}</strong> needs {{ post.blood_group }} blood @ {{ post.address }}</h1>
         <h1>Contact Number: {{ post.number }}</h1>
+        <h1>Bag Needed: {{ post.bag_needed }}</h1>
+        <h1>Bag Recieved: {{ post.bag_recieved }}</h1>
         <p><strong>Deadline: </strong>{{ post.deadline }}</p>
 
         <a href="{{ url_for('task.accept') }}"><button>Accept</button></a>

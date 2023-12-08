@@ -13,14 +13,18 @@
     <h1>Blood Requests: {{ blood_group }}</h1>
   </div>
 
+  <div class="grid grid-cols-4 place-items-center gap-3">
   {% for post in posts %}
-    <div>
-      <h1><strong>{{ post.name }}</strong> needs {{ post.blood_group }} blood @ {{ post.address }}</h1>
-      <h1>Contact Number: {{ post.number }}</h1>
-      <p><strong>Deadline: </strong>{{ post.deadline }}</p>
+    {% if post.donated == False %}
+      <div class="p-6 h-[400px] w-[340px] bg-red-700 text-white rounded-xl">
+        <h1><strong>{{ post.name }}</strong> needs {{ post.blood_group }} blood @ {{ post.address }}</h1>
+        <h1>Contact Number: {{ post.number }}</h1>
+        <p><strong>Deadline: </strong>{{ post.deadline }}</p>
 
-      <a href="{{ url_for('task.view_post', id=post.id) }}"><button>View</button></a>
-    </div>
+        <a href="{{ url_for('task.view_post', id=post.id) }}" class="inline-block px-6 py-2 bg-white text-red-700 rounded-xl shadow-lg hover:bg-slate-200"><button>View</button></a>
+      </div>
+    {% endif %}
   {% endfor %}
+  </div>
 
 {% endblock %}

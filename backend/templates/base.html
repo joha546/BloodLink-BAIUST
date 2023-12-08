@@ -1,42 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}{% endblock %} | BloodLink</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('about_us') }}">About US</a>
-            </li>
-          </ul>
+    <nav class="mx-[300px] mt-2 flex justify-between items-center">
+      <a href="{{ url_for('about_us') }}" class="text-3xl font-bold">BloodLink</a>
 
-
-          {% if current_user.is_authenticated %}
-            <button class="btn btn-outline-success" type="submit"><a href="{{ url_for('task.create_post') }}">Create Post</a></button>
-            <button class="btn btn-outline-success" type="submit"><a href="{{ url_for('index') }}">Home</a></button>
-            <button class="btn btn-outline-success" type="submit"><a href="{{ url_for('auth.logout') }}">Logout</a></button>
-          {% else %}
-          <div class="d-flex" role="search">
-            <button class="btn btn-outline-success" type="submit"><a href="{{ url_for('auth.login') }}">Login</a></button>
-            <button class="btn btn-outline-success" type="submit"><a href="{{ url_for('auth.register') }}">Registration</a></button>
-          </div>
-          {% endif %}
-
-
+      {% if current_user.is_authenticated %}
+        <div class="space-x-4">
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('task.create_post') }}">Create Post</a></button>
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('index') }}">Home</a></button>
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('auth.logout') }}">Logout</a></button>
         </div>
-      </div>
+      {% else %}
+        <div class="space-x-6">
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('auth.login') }}">Login</a></button>
+          <button class="px-6 py-2 bg-red-700 text-white font-semibold rounded-xl"><a href="{{ url_for('auth.register') }}">Registration</a></button>
+        </div>
+      {% endif %}
     </nav>
     
     {% with messages = get_flashed_messages() %}
@@ -48,6 +33,5 @@
     {% endwith %}
 
     {% block content %}{% endblock %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>
