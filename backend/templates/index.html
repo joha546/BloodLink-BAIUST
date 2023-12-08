@@ -1,21 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div>
-            {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
-        </div>
-    {% endif %}
-  {% endwith %}
+  <div class="text-center">
+    <h1>Blood Link BAIUST</h1>
+  </div>
 
-  <figure class="text-center">
-    <blockquote class="blockquote">
-      <h1>Blood Link BAIUST</h1>
-    </blockquote>
-  </figure>
+  <img src="{{ url_for('static', filename='image1.jpg') }}" alt="Banner Image" style="width: 100%;">
+
+  <div class="text-center">
+    <h1>Blood Requests: {{ blood_group }}</h1>
+  </div>
 
   {% for post in posts %}
     <div>

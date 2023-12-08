@@ -21,10 +21,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
 
-    donated = db.relationship('BloodPost', backref='user')
-
-
-
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -65,7 +61,7 @@ class BloodPost(db.Model):
     name = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=False)
     number = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
     blood_group = db.Column(db.String(255), nullable=False)
     deadline = db.Column(db.String(255), nullable=False)
-    user_donated = db.Column(db.Integer, db.ForeignKey('user.id'))
 

@@ -6,7 +6,7 @@ from flask_login import current_user
 @app.route('/')
 def index():
     posts = BloodPost.query.all()
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', title="Home", posts=posts)
 
 
 @app.route('/about_us')

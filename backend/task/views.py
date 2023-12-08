@@ -1,8 +1,10 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, login_required, current_user
+from flask_mail import Mail, Message
+
 from ..models import Patient, User, BloodPost
 from . import task
-from .. import db, login_manager
+from .. import db, login_manager, mail
 from .forms import UserProfileForm
 
 
@@ -51,6 +53,7 @@ def create_post():
         name = request.form['name']
         address = request.form['address']
         number = request.form['number']
+        email = request.form['email']
         blood_group = request.form['blood_group']
         deadline = request.form['deadline']
 
@@ -58,6 +61,7 @@ def create_post():
             name=name,
             address=address,
             number=number,
+            email=email,
             blood_group=blood_group,
             deadline=deadline
         )
@@ -70,10 +74,17 @@ def create_post():
         
     return render_template('blood_post.html', title="Create Post")
 
-@task.route('/view_post/<int:id>')
+@task.route('/view_post/<int:id>', methods=['POST', 'GET'])
 @login_required
 def view_post(id):
     post = BloodPost.query.get_or_404(id)
+    
+    if request.method == 'POST':   
+        msg = Message(f'{request.form.get('name')} agreed to give blood', sender=('BloodLink BAIUST','heavenoncrack@gmail.com'), recipients=[post.email])
+        msg.body = f"{post.name} has accepted your blood request from BloodLink BAIUST."
+        mail.send(msg)
+
+        return redirect(url_for('task.accept'))
 
     return render_template('post.html', post=post)
 
